@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+  br
+  p Rows: #{query.rows}
+  p Columns: #{query.cols}
+  br
+  - var rows = Number(query.rows); 
+  - var cols = Number(query.cols);
+  - if ((Number.isNaN(rows)) || (Number.isNaN(cols)))
+    p Rows or columns are not an integers.
+  - else if (rows > 10 || rows < 1)
+    p Rows must be in between 1 and 10.
+  - else if (cols > 10 || cols < 1)
+    p Columns must be in between 1 and 10.
+  - else
+    table#outer
+      - for (let i = 1; i <= rows; i++)
+        tr#middle
+          - for (let j = 1; j <= cols; j++)
+            - if (i === j)
+              td= 1
+            - else if (i === j + 1)
+              td= 2
+            - else if (j === i + 1)
+              td= i-1
+            - else
+              td= 0
