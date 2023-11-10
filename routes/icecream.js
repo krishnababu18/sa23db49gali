@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('icecream', { title: 'Search Results Icecream' });
+  res.render('icecream', { title: 'Search Results icecream' });
 });
 
 var express = require('express');
@@ -12,5 +12,5 @@ var router = express.Router();
 /* GET icecream */
 router.get('/', icecream_controlers.icecream_view_all_Page );
 module.exports = router;
-
+//icecream_update_put
 module.exports = router;
