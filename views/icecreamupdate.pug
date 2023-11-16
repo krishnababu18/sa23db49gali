@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+  - let icecreamid = toShow._id
+  - let icecreamicecream_flavour = toShow.icecream_flavour
+  - let icecreamicecream_quantity = toShow.icecream_quantity
+  - let icecreamicecream_cost = toShow.icecream_cost
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{icecreamid}
+    - let actionid = "/resource/icecream/" + icecreamid
+    form(id='icecreamForm', action=actionid, method="PUT")
+      div.form-group
+        label.icecreamAttr(for='icecream_flavour') icecream flavour
+        input#icecream_flavour(type='text', name='icecream_flavour', value=icecreamicecream_flavour)
+      div.form-group
+        label.icecreamAttr(for='icecream_quantity') icecream quantity
+        input#icecream_quantity(type='text', name='icecream_quantity', value=icecreamicecream_quantity)
+      div.form-group
+        label.icecreamAttr(for='icecream_cost') icecream cost
+        input#icecream_cost(type='number', name='icecream_cost', value=icecreamicecream_cost)
+      input(type="submit")
+    script.
+      document.forms['icecreamForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show the user that the form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeeded");
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed " + error);
+        });
+      });

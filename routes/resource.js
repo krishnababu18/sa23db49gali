@@ -9,8 +9,10 @@ router.get('/', api_controller.api);
 /// icecream ROUTES ///
 // POST request for creating a icecream
 router.post('/icecream', icecream_controller.icecream_create_post);
+
 // DELETE request to delete icecream
 router.delete('/icecream/:id', icecream_controller.icecream_delete);
+
 // PUT request to update icecream.
 router.put('/icecream/:id', icecream_controller.icecream_update_put);
 // GET request for one icecream.

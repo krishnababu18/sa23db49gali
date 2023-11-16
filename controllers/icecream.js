@@ -52,7 +52,7 @@ exports.icecream_create_post = async function(req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"costume_type":"goat", "cost":12, "size":"large"}
+    // {"icecream_type":"goat", "cost":12, "size":"large"}
     document.icecream_flavour = req.body.icecream_flavour;
     document.icecream_quantity = req.body.icecream_quantity;
     document.icecream_cost = req.body.icecream_cost;
@@ -66,7 +66,7 @@ exports.icecream_create_post = async function(req, res) {
     }
    };
 
-   // for a specific Costume.
+   // for a specific icecream.
 exports.icecream_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try {
@@ -98,3 +98,73 @@ exports.icecream_update_put = async function(req, res) {
    failed`);
     }
    };
+
+// Handle icecream delete on DELETE.
+exports.icecream_delete = async function(req, res) {
+console.log("delete " + req.params.id)
+try {
+result = await icecream.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
+};
+// Handle a show one view with id specified by query
+exports.icecream_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await icecream.findById( req.query.id)
+    res.render('icecreamdetail',
+   { title: 'icecream Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+   // Handle building the view for creating a icecream.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.icecream_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('icecreamcreate', { title: 'icecream Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+   // Handle building the view for updating a costume.
+// query provides the id
+exports.icecream_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await icecream.findById(req.query.id)
+    res.render('icecreamupdate', { title: 'icecream Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    
+
+   // Handle a delete one view with id from query
+exports.icecream_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await icecream.findById(req.query.id)
+    res.render('icecreamdelete', { title: 'icecream Delete', toShow: 
+   result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+   
