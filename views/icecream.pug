@@ -3,33 +3,17 @@ extends layout
 block content
   h1= title
   -
-    let results = [
-      {
-        "icecream_flavour": "Chocolate",
-        "icecream_quantity": "3 liters",
-        "icecream_cost": 60
-      },
-      {
-        "icecream_flavour": "Butter Scotch",
-        "icecream_quantity": "2 liters",
-        "icecream_cost": 70
-      },
-      {
-        "icecream_flavour": "Straw berry",
-        "icecream_quantity": "3 liters",
-        "icecream_cost": 90
-      },                   
-    ]
-  div(class="container-fluid")
-    div(class="row")
-      each item,index in results
-        div(class="col-sm-2", onclick=`buy(${index})`) flavour: #{item.icecream_flavour}
-        div(class="col-sm-2", onclick=`buy(${index})`) Quantity: #{item.icecream_quantity}
-        div(class="col-sm-2", onclick=`buy(${index})`) Cost: #{item.icecream_cost}
+    let items  = results
+  div(class= "container-fluid")
+    div(class = "row m-1")
+      each item,index in items
+        - let destination = `dispatch(\"/resource/update?id=${item._id}\")`
+        div(class="row-sm-2", class="m-1") Item #{item.icecream_flavour}(#{item.icecream_quantity}) is #{item.icecream_cost}
         br
         br
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
         
   script.
-    function buy(itemNum){
-      alert(`You purchased item ${itemNum+1}`)
+    function dispatch(path){
+      window.location.href=path
     }
