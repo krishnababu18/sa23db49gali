@@ -6,7 +6,9 @@ const icecreamSchema = mongoose.Schema({
     },
     icecream_quantity: {
         type: String,
-        required:true
+        required:true,
+        minlength: "7",
+        maxlength: "10"
     },
     icecream_cost: {
         type: Number,
