@@ -19,4 +19,18 @@ router.put('/icecream/:id', icecream_controller.icecream_update_put);
 router.get('/icecream/:id', icecream_controller.icecream_detail);
 // GET request for list of all icecream items.
 router.get('/icecream', icecream_controller.icecream_list);
+
+// A little function to check if we have an authorized user and continue on
+// or
+// redirect to login.
+const secured = (req, res, next) => {
+    if (req.user){
+        return next();
+    }
+    res.redirect("/login");
+}
+
+/* GET update icecream page */
+router.get('/update', secured,icecream_controller.icecream_update_Page);
+
 module.exports = router;

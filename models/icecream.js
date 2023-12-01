@@ -4,5 +4,4 @@ icecream_flavour: String,
 icecream_quantity: String,
 icecream_cost: Number
 })
-module.exports = mongoose.model("icecream",
-icecreamSchema)
+module.exports = mongoose.model("icecream",icecreamSchema)
