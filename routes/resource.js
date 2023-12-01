@@ -32,5 +32,7 @@ const secured = (req, res, next) => {
 
 /* GET update icecream page */
 router.get('/update', secured,icecream_controller.icecream_update_Page);
+router.get('/detail', secured,icecream_controller.icecream_detail);
+router.get('/delete', secured,icecream_controller.icecream_delete_Page)
 
 module.exports = router;
